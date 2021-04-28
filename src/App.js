@@ -3,6 +3,7 @@ import './App.css';
 import { render } from '@testing-library/react';
 import TodoListSidebar from './components/TodoListSidebar';
 import ListTasks from './components/ListTasks';
+import NewTaskForm from './components/NewTaskForm';
 
 class App extends Component {
   lists = [
@@ -26,13 +27,19 @@ class App extends Component {
       'title' : 'make struct'
     }
   ]
+  newTask = (task) => {
+    console.log(task)
+  }
   
+
   render() {
     return (
       <div className="App">
         <TodoListSidebar lists={this.lists}/>
-        <ListTasks tasks={this.tasks}/>
- 
+        <div>
+          <ListTasks tasks={this.tasks}/>
+          <NewTaskForm onSubmit={this.newTask}/>
+        </div>
       </div>
     );
   }

@@ -1,7 +1,30 @@
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  display: flex;
   
+}
+.App {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+.task {
+  border: 3px solid black;
+  padding: 0 5px;
+  border-radius: 5px;
+}
+
+#list-sidebar {
+  
+  width: 20%;
+  padding: 5px;
+  border: 3px solid black;
+  border-radius: 5px;
 }
