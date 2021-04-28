@@ -3,28 +3,48 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+h3 {
+  margin-top: 0px;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  
 }
+
 .App {
   width: 50%;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
 }
+.tasks{
+  border: 3px solid black;
+  padding: 5px;
+  border-radius: 5px;
+}
 .task {
   border: 3px solid black;
-  padding: 0 5px;
+  padding: 5px;
   border-radius: 5px;
 }
 
-#list-sidebar {
+.task>.check-box {
+  float: right;
+}
+
+.task>* {
+  margin-bottom: 5px;
   
-  width: 20%;
+}
+
+#list-sidebar {
+
   padding: 5px;
   border: 3px solid black;
   border-radius: 5px;
+}
+
+#new-task-form>* {
+  display: block;
 }

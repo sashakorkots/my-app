@@ -1,16 +1,20 @@
+
 import React from "react";
 
-const Task = ({task}) => {
+function Task ({task}){ 
+    /* change = (event) => {
+        task.done = !this.task.done
+        this.setState({done : this.task.done})
+        console.log(this.task)
+    } */
 
-        
     return (
-        <div className="task">
-            <h3>{task.title}</h3>
-            <div>
-                <input type="checkbox" value={task.done}></input>
-            </div>
-        </div>
-    );
+    <div className="task">
+        <input type="checkbox" className="check-box" checked={task.done} /* onChange={this.change} */></input>
+        <h3>{task.title}</h3>
+        <p>{task.description}</p>
+    </div>
+    )
 }
 
 export default Task;

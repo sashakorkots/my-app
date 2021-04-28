@@ -5,39 +5,76 @@ import TodoListSidebar from './components/TodoListSidebar';
 import ListTasks from './components/ListTasks';
 import NewTaskForm from './components/NewTaskForm';
 
+
 class App extends Component {
-  lists = [
-    {
-      'id' : 1,
-      'title' : 'monday',
-    },
-    {
-      'id' : 2,
-      'title' : 'friday'
-    }
-  ]
-  tasks = [
-    {
-      'id' : 1,
-      'title' : 'make class',
-      'done' : true
-    },
-    {
-      'id' : 2,
-      'title' : 'make struct'
-    }
-  ]
-  newTask = (task) => {
-    console.log(task)
+  state = {
+    currentlist : 1,
+    lists : [
+      {
+        'id' : 1,
+        'title' : 'Monday',
+        'tasks' : [
+                    {
+                      'id' : 1,
+                      'title' : 'Make class',
+                      'done' : false,
+                    },
+                    {
+                      'id' : 2,
+                      'title' : 'Make struct',
+                      'done' : true,
+
+                    },
+                  ]
+
+      },
+      {
+        'id' : 2,
+        'title' : 'Friday',
+        'tasks' : [
+                    {
+                      'id' : 1,
+                      'title' : 'Go to school',
+                      'done' : true,
+                      'listId' : 1
+                    },
+                    {
+                      'id' : 2,
+                      'title' : 'Play volleyball',
+                      'done' : false,
+                      'listId' : 1
+                    },
+                  ]
+
+      } 
+      
+    ]
   }
-  
+  newTask = (task) => {
+    const newlist = this.state.lists.slice()
+    const newtasks = this.state.lists.find(m => m.id == this.state.currentlist).tasks
+    console.log(task);
+    newlist.find(m => m.id == this.state.currentlist).tasks.push(task)
+    this.setState(
+      {
+        lists : newlist
+      }
+    )
+      
+  }
+  selectList = (task) => {
+    console.log(task)
+    this.setState (
+      {currentlist : task.id}
+    )
+  }
 
   render() {
     return (
       <div className="App">
-        <TodoListSidebar lists={this.lists}/>
-        <div>
-          <ListTasks tasks={this.tasks}/>
+        <TodoListSidebar onSelect={this.selectList} lists={this.state.lists}/>
+        <div className="tasks">
+          <ListTasks tasks={this.state.lists.find(m => m.id == this.state.currentlist).tasks}/>
           <NewTaskForm onSubmit={this.newTask}/>
         </div>
       </div>
