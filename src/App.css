@@ -48,7 +48,11 @@ body {
 #new-task-form>* {
   display: block;
 }
-
+#list-sidebar>div>button {
+  width: 100%;
+}
 .current-list>button {
   color: brown;
+  border: 5px solid brown;
+  border-radius: 2px;
 }
