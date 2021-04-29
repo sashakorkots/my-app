@@ -9,7 +9,6 @@ function useTextField(name) {
         onChange: event => setValue(event.target.value)
     }
 }
-
 function NewTaskForm (props) {
     const fieldTitle = useTextField('title')
     const fieldDescription = useTextField('description')
@@ -23,6 +22,16 @@ function NewTaskForm (props) {
                 
             }
         )
+        /* const taskListEndpoint = `http://localhost:5000/api/ToDoLists/list/${listId}/task`;
+        return fetch(taskListEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+        })
+        .then(response => response.json())
+        .then(props.onSubmit); */
     }
 
     return (

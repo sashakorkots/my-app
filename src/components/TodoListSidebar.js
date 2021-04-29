@@ -1,14 +1,14 @@
 import React from "react";
 import TodoList from './TodoList'
 
-const TodoListSidebar = ({lists,currentlist , onSelect}) => {
+const TodoListSidebar = ({lists, currentlist , onSelect}) => {
     console.log(currentlist)
     return (
         
         <div id='list-sidebar'>
             <h2>Lists</h2>
             {
-                lists.map((l, i) => <TodoList Class={currentlist == l.id ? 'current-list': ''} onClick={() => onSelect(l)} key={i} todoList={l} />)
+                lists.map((l, i) => <TodoList className={currentlist == l.myListId ? 'current-list': ''} onClick={() => onSelect(l)} key={i} todoList={l} />)
             }
         </div>
     );
@@ -16,6 +16,3 @@ const TodoListSidebar = ({lists,currentlist , onSelect}) => {
 
 export default TodoListSidebar;
 
-/* 
-currentlist == l.id ? 
-*/

@@ -57,3 +57,6 @@ body {
   border: 5px solid brown;
   border-radius: 2px;
 }
+.over-due-date {
+  color: red;
+}
