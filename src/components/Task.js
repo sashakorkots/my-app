@@ -11,7 +11,7 @@ function Task ({task, ...props}){
     }
     return (
         <div className="task" >
-            <input type="checkbox" className="check-box" checked={done} onChange={change}></input>
+            <input type="checkbox" className="check-box" checked={task.done} onChange={change}></input>
             <h3>{task.title}</h3>
             <p>{task.description}</p>
             <button {...props}>Delete</button>
