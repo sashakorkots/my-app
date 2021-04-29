@@ -1,30 +1,27 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-class NewTaskForm extends Component {
-    state = {
-        title : "",
-        done : false
-    }
+function NewTaskForm (props) {
+    const [title, setTitle] = useState("");
 
-    onSubmitHandler = (event) => {
+
+    const onSubmitHandler = (event) => {
         event.preventDefault()
-        this.props.onSubmit(this.state)
+        props.onSubmit(title)
     }
 
-    onChange = (event) => {
-        this.setState({
-            title : event.target.value
-        })
-    }
-
-    render() {
-        return (
-            <form id="new-task-form" className="task" onSubmit={this.onSubmitHandler}>                
-                <input type="text" name="title" onChange={this.onChange}/>                
-                <button type="submit">submit</button> 
-            </form>
+    const onChange = (event) => {
+        setTitle(
+            event.target.value
         )
     }
+
+    return (
+        <form id="new-task-form" className="task" onSubmit={onSubmitHandler}>                
+            <input type="text" name="title" onChange={onChange}/>                
+            <button type="submit">submit</button> 
+        </form>
+    )
+    
 }
 
 export default NewTaskForm

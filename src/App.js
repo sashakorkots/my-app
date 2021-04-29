@@ -50,10 +50,11 @@ class App extends Component {
       
     ]
   }
-  newTask = (task) => {
+  newTask = (formFields) => {
+    
+    const task = {title : formFields,done : false}
+    console.log(task)
     const newlist = this.state.lists.slice()
-    const newtasks = this.state.lists.find(m => m.id == this.state.currentlist).tasks
-    console.log(task);
     newlist.find(m => m.id == this.state.currentlist).tasks.push(task)
     this.setState(
       {
@@ -62,10 +63,10 @@ class App extends Component {
     )
       
   }
-  selectList = (task) => {
-    console.log(task)
+  selectList = (list) => {
+    console.log(list)
     this.setState (
-      {currentlist : task.id}
+      {currentlist : list.id}
     )
   }
 

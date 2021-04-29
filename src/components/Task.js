@@ -1,19 +1,21 @@
 
-import React from "react";
+import React, {useState} from "react";
 
 function Task ({task}){ 
-    /* change = (event) => {
-        task.done = !this.task.done
-        this.setState({done : this.task.done})
-        console.log(this.task)
-    } */
+
+    const [done, setDone] = useState(task.done)
+
+    const change = (event) => {
+        task.done = !task.done
+        setDone(task.done)
+    }
 
     return (
-    <div className="task">
-        <input type="checkbox" className="check-box" checked={task.done} /* onChange={this.change} */></input>
-        <h3>{task.title}</h3>
-        <p>{task.description}</p>
-    </div>
+        <div className="task">
+            <input type="checkbox" className="check-box" checked={done} onChange={change}></input>
+            <h3>{task.title}</h3>
+            <p>{task.description}</p>
+        </div>
     )
 }
 
