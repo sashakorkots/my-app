@@ -48,3 +48,7 @@ body {
 #new-task-form>* {
   display: block;
 }
+
+.current-list>button {
+  color: brown;
+}

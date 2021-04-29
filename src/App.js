@@ -36,13 +36,11 @@ class App extends Component {
                       'id' : 1,
                       'title' : 'Go to school',
                       'done' : true,
-                      'listId' : 1
                     },
                     {
                       'id' : 2,
                       'title' : 'Play volleyball',
                       'done' : false,
-                      'listId' : 1
                     },
                   ]
 
@@ -50,9 +48,7 @@ class App extends Component {
       
     ]
   }
-  newTask = (formFields) => {
-    
-    const task = {title : formFields,done : false}
+  newTask = (task) => {
     console.log(task)
     const newlist = this.state.lists.slice()
     newlist.find(m => m.id == this.state.currentlist).tasks.push(task)
@@ -69,13 +65,24 @@ class App extends Component {
       {currentlist : list.id}
     )
   }
-
+  removeTask = (task) => {
+    const tasks = this.state.lists.find(m => m.id == this.state.currentlist).tasks
+    tasks.splice(tasks.find(t => t.id == task.id),1)
+    const newlist = this.state.lists.slice()
+    newlist.tasks = tasks
+    console.log(newlist)
+    this.setState(
+      {
+        lists : newlist
+      }
+    )
+  };
   render() {
     return (
       <div className="App">
-        <TodoListSidebar onSelect={this.selectList} lists={this.state.lists}/>
+        <TodoListSidebar onSelect={this.selectList} lists={this.state.lists} currentlist={this.state.currentlist}/>
         <div className="tasks">
-          <ListTasks tasks={this.state.lists.find(m => m.id == this.state.currentlist).tasks}/>
+          <ListTasks onClickDel={this.removeTask} tasks={this.state.lists.find(m => m.id == this.state.currentlist).tasks} />
           <NewTaskForm onSubmit={this.newTask}/>
         </div>
       </div>
