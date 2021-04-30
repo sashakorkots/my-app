@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Task from './Task'
+import NewTaskForm from './NewTaskForm'
 
 const ListTasks = ({currentlist}) => {
 
@@ -20,15 +21,24 @@ const ListTasks = ({currentlist}) => {
                 'Content-Type': 'application/json'
             },
         })
-        setTasks(tasks.splice(tasks.find(t => t.myTaskId == task.myTaskId),1))
+        .then(response => response.json)
+        .then(_ => setTasks(tasks.filter(t => t.myTaskId !== task.myTaskId)))
+        
     }
+
+    const newTask = (task) => {
+        setTasks(tasks.concat(task))
+    }
+
     return (
         <div id='tasks'>
             <h2>Tasks</h2>
             {
-                tasks.map((m,i) => <Task key={i} task={m} onClick={_ => onClickDel(m)}/>)
+                tasks.map((m,i) => <Task key={i} task={m}  onClick={_ => onClickDel(m)}/>)
             }
-        </div>
+            <NewTaskForm onSubmit={newTask} currentlist={currentlist}/>
+        </div>        
+        
     );
 }
 

@@ -16,7 +16,7 @@ function Task ({task, ...props}){
             body: JSON.stringify(task)
         })
         .then(response => response.json())
-        .then(t => setDone(t.done))
+        .then(t => setDone(!done))
     }
     function builDueDateNode(doDate) {
         if (doDate != null){
@@ -29,11 +29,17 @@ function Task ({task, ...props}){
             return {className : 'over-due-date'}
         }
     }
-    console.log(task)
+
+    function buildTitle(done) {
+        if (done) {
+            return {className : 'task-complete'}
+        }
+    }
+
     return (
         <div className="task" >
             <input type="checkbox" className="check-box" checked={task.done} onChange={change}></input>
-            <h3>{task.title}</h3>
+            <h3 {...buildTitle(task.done)}>{task.title}</h3>
             <p>{task.description}</p>
             <div {...overDueDate(task.doDate)}>{builDueDateNode(task.doDate)}</div>
             <button {...props}>Delete</button>

@@ -1,44 +1,56 @@
 import React, { useState } from 'react'
 
-function useTextField(name) {
+function useField(name, type) {
     const [value, setValue] = useState("");
     return {
-        type: 'text',
+        type,
         value,
         name,
-        onChange: event => setValue(event.target.value)
+        onChange: event => setValue(event.target.value),
+        clean: () => setValue("")
     }
 }
-function NewTaskForm (props) {
-    const fieldTitle = useTextField('title')
-    const fieldDescription = useTextField('description')
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault()
-        props.onSubmit(
-            {
-                title : fieldTitle.value,
-                description : fieldDescription.value
-                
-            }
-        )
-        /* const taskListEndpoint = `http://localhost:5000/api/ToDoLists/list/${listId}/task`;
-        return fetch(taskListEndpoint, {
+function NewTaskForm (props) {
+    const fieldTitle = useField('title','text')
+    const fieldDescription = useField('description','text')
+    const fieldDoDate = useField('doDate','date')
+
+    const createTask = (event) => {
+        const taskListEndpoint = `http://localhost:5000/api/ToDoLists/list/${props.currentlist}/task`;
+        fetch(taskListEndpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(task)
+            body: JSON.stringify(
+                {
+                    title : fieldTitle.value,
+                    description : fieldDescription.value,
+                    doDate : fieldDoDate.value
+                })
         })
         .then(response => response.json())
-        .then(props.onSubmit); */
+        .then(props.onSubmit)
+        .then(_ => {
+            fieldTitle.clean();
+            fieldDescription.clean();
+            fieldDoDate.clean();
+        }); 
+    }
+
+    const onSubmitHandler = (event) => {
+        event.preventDefault()
+        createTask(event)
+
     }
 
     return (
         
         <form id="new-task-form" className="task" onSubmit={onSubmitHandler}>                
             <input {...fieldTitle} />   
-            <input {...fieldDescription} />            
+            <input {...fieldDescription} />        
+            <input {...fieldDoDate} />      
             <button type="submit">submit</button> 
         </form>
     )

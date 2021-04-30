@@ -60,3 +60,7 @@ body {
 .over-due-date {
   color: red;
 }
+.task-complete{
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.61);
+}
