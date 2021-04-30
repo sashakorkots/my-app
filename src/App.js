@@ -1,36 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 /* import { render } from '@testing-library/react'; */
-import TodoListSidebar from './components/TodoListSidebar';
-import ListTasks from './components/ListTasks';
+import TodayTasksPage from './pages/TodayTasksPage';
+import TodoListPage from './pages/TodoListPage';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-
-function App() {
-  const [currentlist, setCurrentlist] = useState(1)
-  const [lists, setLists] = useState([]) 
-
-  useEffect(() => {
-    const taskListEndpoint = `http://localhost:5000/api/ToDoLists/lists`;
-    fetch(taskListEndpoint)
-      .then(response => response.json())
-      .then(setLists)
-  },[])
-
-
-  const selectList = (list) => {
-
-    setCurrentlist(list.myListId)
-  }
-
+export default function Basic() {
   return (
-    <div className="App">
-      <TodoListSidebar onSelect={selectList} lists={lists} currentlist={currentlist}/>
-      <div className="tasks">
-        <ListTasks currentlist={currentlist}/>
-        
-      </div>
-    </div>
-  );
-}
-
-export default App;
+    <Router>
+        <ul>
+          <li>
+            <Link to="/todayTasksPage">today</Link>
+          </li>
+          <li>
+            <Link to="/todoListPage">list of tasks</Link>
+          </li>
+        </ul>
+        <Switch>
+          <Route path="/todayTasksPage">
+            <TodayTasksPage />
+          </Route>
+          <Route path="/todoListPage">
+            <TodoListPage />
+          </Route>
+        </Switch>
+    </Router>
+  )
+};
