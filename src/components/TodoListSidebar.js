@@ -8,7 +8,7 @@ const TodoListSidebar = ({lists, currentlist , onSelect}) => {
         <div id='list-sidebar'>
             <h2>Lists</h2>
             {
-                lists.map((l, i) => <TodoList className={currentlist === l.myListId ? 'current-list': ''} onClick={() => onSelect(l)} key={i} todoList={l} />)
+                lists.map((l) => <TodoList className={currentlist === l ? 'current-list': ''} onClick={() => onSelect(l)} key={l.myListId} todoList={l} />)
             }
         </div>
     );
@@ -16,3 +16,6 @@ const TodoListSidebar = ({lists, currentlist , onSelect}) => {
 
 export default TodoListSidebar;
 
+/* 
+
+*/

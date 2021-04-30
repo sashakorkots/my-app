@@ -22,11 +22,9 @@ function TodoListPage() {
   
     return (
         <div className="App">
-        <TodoListSidebar onSelect={selectList} lists={lists} currentlist={currentlist}/>
-        <div className="tasks">
-          <ListTasks currentlist={currentlist}/>
-          
-        </div>
+            <div className="tasks">
+                <ListTasks currentlist={currentlist}/>    
+            </div>
       </div>
     );
 }

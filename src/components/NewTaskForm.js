@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Url from "./url"
 
 function useField(name, type) {
     const [value, setValue] = useState("");
@@ -17,7 +18,7 @@ function NewTaskForm (props) {
     const fieldDoDate = useField('doDate','date')
 
     const createTask = (event) => {
-        const taskListEndpoint = `http://localhost:5000/api/ToDoLists/list/${props.currentlist}/task`;
+        const taskListEndpoint = `${Url}list/${props.currentlist.myListId}/task`;
         fetch(taskListEndpoint, {
             method: 'POST',
             headers: {

@@ -4,7 +4,7 @@ import ListTasks from '/home/intern/Documents/my-app/src/components/ListTasks';
 
 
 function TodoListPage() {
-    const [currentlist, setCurrentlist] = useState(1)
+    const [currentlist, setCurrentlist] = useState(null)
     const [lists, setLists] = useState([]) 
   
     useEffect(() => {
@@ -14,18 +14,13 @@ function TodoListPage() {
         .then(setLists)
     },[])
   
-  
-    const selectList = (list) => {
-  
-      setCurrentlist(list.myListId)
-    }
-  
+
     return (
       <div className="App">
-        <TodoListSidebar onSelect={selectList} lists={lists} currentlist={currentlist}/>
+        <TodoListSidebar onSelect={setCurrentlist} lists={lists} currentlist={currentlist}/>
+        
         <div className="tasks">
-          <ListTasks currentlist={currentlist}/>
-          
+          {currentlist && <ListTasks currentlist={currentlist}/>}
         </div>
       </div>
     );

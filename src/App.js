@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 /* import { render } from '@testing-library/react'; */
 import TodayTasksPage from './pages/TodayTasksPage';
@@ -18,7 +18,7 @@ export default function Basic() {
             <Link to="/todayTasksPage">today</Link>
           </li>
           <li>
-            <Link to="/todoListPage">list of tasks</Link>
+            <Link to="/todoListPage">lists of tasks</Link>
           </li>
         </ul>
         <Switch>

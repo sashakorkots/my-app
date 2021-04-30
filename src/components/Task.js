@@ -1,13 +1,14 @@
 
-import React, {useState} from "react";
+import React from "react";
+import Url from "./url"
 
-function Task ({task, ...props}){ 
+function Task ({task, onUpdate, onDelete, ...props}){ 
 
-    const [done, setDone] = useState(task.done)
 
     const change = (event) => {
+            
             task.done = !task.done
-            const taskListEndpoint = `http://localhost:5000/api/ToDoLists/list/${task.myListId}/task/${task.myTaskId}`;
+            const taskListEndpoint = `${Url}list/${task.myListId}/task/${task.myTaskId}`;
             return fetch(taskListEndpoint, {
             method: 'PATCH',
             headers: {
@@ -16,8 +17,21 @@ function Task ({task, ...props}){
             body: JSON.stringify(task)
         })
         .then(response => response.json())
-        .then(t => setDone(!done))
+        .then(onUpdate)
     }
+
+    const remove = (event) => {
+        const taskListEndpoint = `${Url}list/${task.myListId}/task/${task.myTaskId}`;
+        fetch(taskListEndpoint, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(onDelete)
+    }
+
     function builDueDateNode(doDate) {
         if (doDate != null){
             return new Date(doDate).toDateString();
@@ -42,7 +56,7 @@ function Task ({task, ...props}){
             <h3 {...buildTitle(task.done)}>{task.title}</h3>
             <p>{task.description}</p>
             <div {...overDueDate(task.doDate)}>{builDueDateNode(task.doDate)}</div>
-            <button {...props}>Delete</button>
+            <button onClick={remove} >Delete</button>
         </div>
     )
 }
