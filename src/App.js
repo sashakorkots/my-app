@@ -1,34 +1,42 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 /* import { render } from '@testing-library/react'; */
-import TodayTasksPage from './pages/TodayTasksPage';
-import TodoListPage from './pages/TodoListPage';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import TodoListSidebar from './components/TodoListSidebar';
+import ListTasks from './components/ListTasks';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import Url from './components/url';
+import TodayTasks from './components/TodayTasks';
 
-export default function Basic() {
+function TodoListPage() {
+
+  const [lists, setLists] = useState([]) 
+
+  useEffect(() => {
+    const taskListEndpoint = `${Url}lists`;
+    fetch(taskListEndpoint)
+      .then(response => response.json())
+      .then(setLists)
+  },[])
+
+
   return (
-    <Router>
-        <ul>
-          <li>
-            <Link to="/todayTasksPage">today</Link>
-          </li>
-          <li>
-            <Link to="/todoListPage">lists of tasks</Link>
-          </li>
-        </ul>
-        <Switch>
-          <Route path="/todayTasksPage">
-            <TodayTasksPage />
+    
+    <div className="App">
+      <BrowserRouter>
+        <TodoListSidebar lists={lists} />
+        
+        <div className="tasks">
+          
+          <Switch>
+          <Route path="/today">
+            <TodayTasks />
           </Route>
-          <Route path="/todoListPage">
-            <TodoListPage />
-          </Route>
-        </Switch>
-    </Router>
-  )
-};
+            {lists.map(l => <Route key={l.myListId} path={`/todo-list/${l.myListId}`}> <ListTasks  currentlist={l}/></Route>)}
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default TodoListPage;

@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Task from './Task'
-import NewTaskForm from './NewTaskForm'
 import Url from "./url"
 
-const ListTasks = ({currentlist}) => {
+function TodayTasks() {
 
     const[tasks, setTasks] = useState([])
+
     useEffect(() => {
-        const taskListEndpoint = `${Url}lists/${currentlist.myListId}/tasks`;
+        const taskListEndpoint = `${Url}collection/today`;
         fetch(taskListEndpoint)
           .then(response => response.json())
           .then(setTasks)
-      },[currentlist.myListId])
+      },[])
 
     const onClickDel = (task) => {
         setTasks(tasks.filter(t => t.myTaskId !== task.myTaskId))
 
-    }
-
-    const newTask = (task) => {
-        setTasks(tasks.concat(task))
     }
 
     const replaceTask = (task) => {
@@ -33,12 +29,11 @@ const ListTasks = ({currentlist}) => {
         <div id='tasks'>
             <h2>Tasks</h2>
             {
-                tasks.map((m) => <Task key={m.myTaskId} today={false} task={m} onUpdate={replaceTask}  onDelete={onClickDel}/>)
+                tasks.map((m) => <Task key={m.myTaskId} task={m} onUpdate={replaceTask}  onDelete={onClickDel} today={true}/>)
             }
-            <NewTaskForm onSubmit={newTask} currentlist={currentlist}/>
         </div>        
         
     );
 }
 
-export default ListTasks;
+export default TodayTasks;

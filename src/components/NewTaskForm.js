@@ -7,6 +7,7 @@ function useField(name, type) {
         type,
         value,
         name,
+        placeholder: name.toUpperCase(),
         onChange: event => setValue(event.target.value),
         clean: () => setValue("")
     }

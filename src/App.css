@@ -48,13 +48,10 @@ body {
 #new-task-form>* {
   display: block;
 }
-#list-sidebar>div>button {
-  width: 99%;
-  
-}
-.current-list>button {
-  color: brown;
-  border: 5px solid brown;
+
+.active-link {
+  color: rgb(1, 136, 7);
+  border: 1px solid brown;
   border-radius: 2px;
 }
 .over-due-date {
@@ -63,4 +60,8 @@ body {
 .task-complete{
   text-decoration: line-through;
   color: rgba(0, 0, 0, 0.61);
+}
+.link {
+  display: block;
+  text-decoration: none;
 }

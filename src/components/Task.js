@@ -1,8 +1,9 @@
 
 import React from "react";
+import { NavLink } from "react-router-dom";
 import Url from "./url"
 
-function Task ({task, onUpdate, onDelete, ...props}){ 
+function Task ({task, onUpdate, onDelete, today}){ 
 
 
     const change = (event) => {
@@ -38,8 +39,9 @@ function Task ({task, onUpdate, onDelete, ...props}){
         }
     }
     function overDueDate(doDate) {
-        let now = new Date();
-        if (new Date(doDate) < now) {
+        const now = new Date(new Date().toDateString().split('T'));
+        const date = new Date(doDate);
+        if (date < now) {
             return {className : 'over-due-date'}
         }
     }
@@ -55,10 +57,15 @@ function Task ({task, onUpdate, onDelete, ...props}){
             <input type="checkbox" className="check-box" checked={task.done} onChange={change}></input>
             <h3 {...buildTitle(task.done)}>{task.title}</h3>
             <p>{task.description}</p>
-            <div {...overDueDate(task.doDate)}>{builDueDateNode(task.doDate)}</div>
+            {!today && <div {...overDueDate(task.doDate)}>{builDueDateNode(task.doDate)}</div>}
+            {today && <NavLink to={`/todo-list/${task.myListId}`} className='link'>{task.titleOfList} </NavLink>}
             <button onClick={remove} >Delete</button>
         </div>
     )
 }
 
 export default Task;
+
+/* 
+<NavLink to={`/todo-list/${l.myListId}`} key={l.myListId} activeClassName="active-link" className='link'>{l.title} </NavLink>
+*/
