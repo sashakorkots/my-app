@@ -1,6 +1,17 @@
 import React, { useState } from 'react'
 import Url from "./url"
 
+function fieldAPI(...fields) {
+    const object = {}
+    for (let f of fields) {
+        object[f.name] = f.value;
+    }
+    return {
+        buildObject : object,
+        cleanAll : () => fields.map(m => m.setvalue.setvalue(""))
+    }
+}
+
 function useField(name, type) {
     const [value, setValue] = useState("");
     return {
@@ -9,7 +20,7 @@ function useField(name, type) {
         name,
         placeholder: name.toUpperCase(),
         onChange: event => setValue(event.target.value),
-        clean: () => setValue("")
+        setvalue: { setvalue : setValue}
     }
 }
 
@@ -19,25 +30,17 @@ function NewTaskForm (props) {
     const fieldDoDate = useField('doDate','date')
 
     const createTask = (event) => {
-        const taskListEndpoint = `${Url}list/${props.currentlist.myListId}/task`;
+        const taskListEndpoint = `${Url}list/${props.currentlist}/task`;
         fetch(taskListEndpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
-                {
-                    title : fieldTitle.value,
-                    description : fieldDescription.value,
-                    doDate : fieldDoDate.value
-                })
+            body: JSON.stringify(fieldAPI(fieldTitle, fieldDescription, fieldDoDate).buildObject)
         })
         .then(response => response.json())
         .then(props.onSubmit)
-        .then(_ => {
-            fieldTitle.clean();
-            fieldDescription.clean();
-            fieldDoDate.clean();
+        .then(_ => { fieldAPI( fieldTitle, fieldDescription, fieldDoDate).cleanAll();
         }); 
     }
 

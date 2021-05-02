@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import Task from './Task'
 import NewTaskForm from './NewTaskForm'
 import Url from "./url"
+import { useParams } from "react-router";
 
-const ListTasks = ({currentlist}) => {
-
+const ListTasks = () => {
+    let {id} = useParams();
     const[tasks, setTasks] = useState([])
     useEffect(() => {
-        const taskListEndpoint = `${Url}lists/${currentlist.myListId}/tasks`;
+        const taskListEndpoint = `${Url}lists/${id}/tasks`;
         fetch(taskListEndpoint)
           .then(response => response.json())
           .then(setTasks)
-      },[currentlist.myListId])
+      },[id])
 
     const onClickDel = (task) => {
         setTasks(tasks.filter(t => t.myTaskId !== task.myTaskId))
@@ -35,7 +36,7 @@ const ListTasks = ({currentlist}) => {
             {
                 tasks.map((m) => <Task key={m.myTaskId} today={false} task={m} onUpdate={replaceTask}  onDelete={onClickDel}/>)
             }
-            <NewTaskForm onSubmit={newTask} currentlist={currentlist}/>
+            <NewTaskForm onSubmit={newTask} currentlist={id}/>
         </div>        
         
     );

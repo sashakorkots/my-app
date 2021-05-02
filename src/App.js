@@ -31,7 +31,9 @@ function TodoListPage() {
           <Route path="/today">
             <TodayTasks />
           </Route>
-            {lists.map(l => <Route key={l.myListId} path={`/todo-list/${l.myListId}`}> <ListTasks  currentlist={l}/></Route>)}
+            <Route path={`/todo-list/:id`}> 
+              <ListTasks/>
+            </Route>)
           </Switch>
         </div>
       </BrowserRouter>
