@@ -7,7 +7,7 @@ function fieldAPI(...fields) {
         object[f.name] = f.value;
     }
     return {
-        buildObject : object,
+        buildObject : object,  /* buildObject : () => fields.reduce((i,f) => i[f.name] = f.value, {}), */
         cleanAll : () => fields.map(m => m.setvalue.setvalue(""))
     }
 }
