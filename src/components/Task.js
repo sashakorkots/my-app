@@ -1,14 +1,17 @@
 
 import React from "react";
-import { NavLink } from "react-router-dom";
-import Url from "./url"
+import { Link } from "react-router-dom";
+import Url from "../url"
 
 function Task ({task, onUpdate, onDelete, today}){ 
 
 
-    const change = (event) => {
-            
-            task.done = !task.done
+    const change = (event) => {  
+        updateTask().then(onUpdate)
+    }
+
+    const updateTask = () => {
+        task.done = !task.done
             const taskListEndpoint = `${Url}list/${task.myListId}/task/${task.myTaskId}`;
             return fetch(taskListEndpoint, {
             method: 'PATCH',
@@ -17,22 +20,23 @@ function Task ({task, onUpdate, onDelete, today}){
             },
             body: JSON.stringify(task)
         })
-        .then(response => response.json())
-        .then(onUpdate)
+        .
+        then(response => response.json())
     }
-
     const remove = (event) => {
+        
+        deleteTask().then(onDelete)
+    }
+    const deleteTask = () => {
         const taskListEndpoint = `${Url}list/${task.myListId}/task/${task.myTaskId}`;
-        fetch(taskListEndpoint, {
+        return fetch(taskListEndpoint, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
         .then(response => response.json())
-        .then(onDelete)
     }
-
     function builDueDateNode(doDate) {
         if (doDate != null){
             return new Date(doDate).toDateString();
@@ -56,9 +60,9 @@ function Task ({task, onUpdate, onDelete, today}){
         <div className="task" >
             <input type="checkbox" className="check-box" checked={task.done} onChange={change}></input>
             <h3 {...buildTitle(task.done)}>{task.title}</h3>
-            <p>{task.description}</p>
-            {!today && <div {...overDueDate(task.doDate)}>{builDueDateNode(task.doDate)}</div>}
-            {today && <NavLink to={`/todo-list/${task.myListId}`} className='link'>{task.titleOfList} </NavLink>}
+            {task.description && <p>Description: {task.description}</p>}
+            {!today && task.doDate && <div>Due Date: <span {...overDueDate(task.doDate)}>{builDueDateNode(task.doDate)}</span></div>}
+            {today && <div>From list: <Link to={`/todo-list/${task.myListId}`} className='link'>{task.titleOfList} </Link></div>}
             <button onClick={remove} >Delete</button>
         </div>
     )

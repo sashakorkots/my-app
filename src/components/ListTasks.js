@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Task from './Task'
 import NewTaskForm from './NewTaskForm'
-import Url from "./url"
+import Url from "../url"
 import { useParams } from "react-router";
 
 const ListTasks = () => {
-    let {id} = useParams();
+    const {id} = useParams();
+
     const[tasks, setTasks] = useState([])
+
     useEffect(() => {
+        getTasks(id).then(setTasks)
+    },[id])
+    
+    const getTasks = (id) => {
         const taskListEndpoint = `${Url}lists/${id}/tasks`;
-        fetch(taskListEndpoint)
+        return fetch(taskListEndpoint)
           .then(response => response.json())
-          .then(setTasks)
-      },[id])
+          
+    }
 
     const onClickDel = (task) => {
         setTasks(tasks.filter(t => t.myTaskId !== task.myTaskId))

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Url from "./url"
+import Url from "../url"
 
 function fieldAPI(...fields) {
     const object = {}

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Task from './Task'
-import Url from "./url"
+import Url from "../url"
 
 function TodayTasks() {
 
     const[tasks, setTasks] = useState([])
 
     useEffect(() => {
+        getLists().then(setTasks)
+    },[])
+
+    const getLists = () => {
         const taskListEndpoint = `${Url}collection/today`;
-        fetch(taskListEndpoint)
+        return fetch(taskListEndpoint)
           .then(response => response.json())
-          .then(setTasks)
-      },[])
+    }
 
     const onClickDel = (task) => {
         setTasks(tasks.filter(t => t.myTaskId !== task.myTaskId))

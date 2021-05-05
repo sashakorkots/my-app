@@ -3,9 +3,12 @@ import './App.css';
 /* import { render } from '@testing-library/react'; */
 import TodoListSidebar from './components/TodoListSidebar';
 import ListTasks from './components/ListTasks';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import Url from './components/url';
+import {Route, BrowserRouter} from 'react-router-dom';
+import Url from './url';
 import TodayTasks from './components/TodayTasks';
+import store from './store';
+import { loadlist } from './actions/listsActions'
+
 
 function TodoListPage() {
 
@@ -19,6 +22,14 @@ function TodoListPage() {
   },[])
 
 
+  /* const upadateState = () => {
+    setLists(store.getState());
+  }
+
+  useEffect(() => {
+    store.subscribe(upadateState())
+  }) */
+
   return (
     
     <div className="App">
@@ -26,15 +37,13 @@ function TodoListPage() {
         <TodoListSidebar lists={lists} />
         
         <div className="tasks">
-          
-          <Switch>
+
           <Route path="/today">
             <TodayTasks />
           </Route>
-            <Route path={`/todo-list/:id`}> 
-              <ListTasks/>
-            </Route>)
-          </Switch>
+            <Route path={`/todo-list/:id`} > 
+              <ListTasks />
+            </Route>
         </div>
       </BrowserRouter>
     </div>
