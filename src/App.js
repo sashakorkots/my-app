@@ -7,8 +7,10 @@ import {Route, BrowserRouter} from 'react-router-dom';
 import Url from './url';
 import TodayTasks from './components/TodayTasks';
 import store from './store';
-import { loadlist } from './actions/listsActions'
-
+import { loadDashboard } from './actions/listsActions'
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import listReducer from './reducers/listReducer';
 
 function TodoListPage() {
 
@@ -20,15 +22,6 @@ function TodoListPage() {
       .then(response => response.json())
       .then(setLists)
   },[])
-
-
-  /* const upadateState = () => {
-    setLists(store.getState());
-  }
-
-  useEffect(() => {
-    store.subscribe(upadateState())
-  }) */
 
   return (
     

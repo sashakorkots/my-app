@@ -1,1 +1,2 @@
 export const LOAD_LIST = 'LOAD_LIST';
+export const DASHBOARD_LOADED = 'DASHBOARD_LOADED';

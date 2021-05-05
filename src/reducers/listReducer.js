@@ -1,21 +1,20 @@
-import { LOAD_LIST } from '../actions/types';
-import  Url  from '../url'
+import { DASHBOARD_LOADED } from '../actions/types';
 
-const getLists = () => {
-    const taskListEndpoint = `${Url}lists`;
-    fetch(taskListEndpoint)
-        .then(response => response.json())
-      
-} 
-const listReducer = (state = getLists(), action) => {
+const defaultState = {
+    lists: []
+};
+
+const listReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case LOAD_LIST:
+        case DASHBOARD_LOADED:
             return {
-                lists: getLists()
+                lists: action.payload
             }
         default:
             return state
     }
-}
-export default listReducer
+};
+export default listReducer;
  
+
+//redux thunk
