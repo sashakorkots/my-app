@@ -1,11 +1,14 @@
 import { applyMiddleware, combineReducers} from 'redux';
 import { createStore } from 'redux'
 import thunk from 'redux-thunk';
-import dashboardReducer from './reducers/dashboardReducer'
+import dashboardReducer from './reducers/dashboardReducer';
+import reducers from './reducers/reducer'
+
 
 
 const configureStore = () => createStore(
-    dashboardReducer,
+    reducers
+    ,
     applyMiddleware(
         thunk
     ),
@@ -17,6 +20,7 @@ export default configureStore;
 
 //combaine redusers
 
-/* combineReducers(
-        listReducer,
-    ) */
+/* combineReducers({
+        dashboardReducer,
+        tasksReducers
+}) */

@@ -73,5 +73,5 @@ body {
   content: ")";
 }
 .count-of-tasks::before {
-  content: "(";
+  content: " (";
 }

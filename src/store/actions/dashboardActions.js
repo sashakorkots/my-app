@@ -1,5 +1,5 @@
 import { DASHBOARD_LOADED} from "./types"
-import Url from '../url'
+import Url from '../../url'
 
 
 export const loadDashboard = () => async(dispatch) => {

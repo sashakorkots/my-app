@@ -6,24 +6,27 @@ import ListTasks from './components/ListTasks';
 import {Route, BrowserRouter} from 'react-router-dom';
 import Url from './url';
 import TodayTasks from './components/TodayTasks';
-import { loadDashboard } from './actions/dashboardActions'
-import { useDispatch } from 'react-redux';
+import { loadDashboard } from './store/actions/dashboardActions'
+import { useDispatch,useSelector } from 'react-redux';
 
 function TodoListPage(/* {lists} */) {
 
   const [lists, setLists] = useState([]) 
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    const taskListEndpoint = `${Url}lists`;
     dispatch(loadDashboard())
+    const taskListEndpoint = `${Url}lists`;  
     fetch(taskListEndpoint)
       .then(response => response.json())
       .then(setLists)
-  },[])
+  },[dispatch])
 
-  const dispatch = useDispatch()
+  
 
-
+  const data = useSelector(state => state.dashboard);
+  console.log(data)
 
 
   return (
