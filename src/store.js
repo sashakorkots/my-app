@@ -1,19 +1,13 @@
-import { applyMiddleware, combineReducers, compose } from 'redux';
+import { applyMiddleware, combineReducers} from 'redux';
 import { createStore } from 'redux'
 import thunk from 'redux-thunk';
-import listReducer from './reducers/listReducer'
+import dashboardReducer from './reducers/dashboardReducer'
 
-import rootReducers from './reducers/rootReducer'
 
-const configureStore = (preloadedState = {}) => createStore(
-    combineReducers(
-        ...rootReducers,
-    ),
-    preloadedState,
-    compose(
-        applyMiddleware(
-            thunk
-            )
+const configureStore = () => createStore(
+    dashboardReducer,
+    applyMiddleware(
+        thunk
     ),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
@@ -22,3 +16,7 @@ const configureStore = (preloadedState = {}) => createStore(
 export default configureStore;
 
 //combaine redusers
+
+/* combineReducers(
+        listReducer,
+    ) */

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback } from 'react';
 import './App.css';
 /* import { render } from '@testing-library/react'; */
 import TodoListSidebar from './components/TodoListSidebar';
@@ -6,22 +6,25 @@ import ListTasks from './components/ListTasks';
 import {Route, BrowserRouter} from 'react-router-dom';
 import Url from './url';
 import TodayTasks from './components/TodayTasks';
-import store from './store';
-import { loadDashboard } from './actions/listsActions'
-import { useSelector } from 'react-redux';
+import { loadDashboard } from './actions/dashboardActions'
 import { useDispatch } from 'react-redux';
-import listReducer from './reducers/listReducer';
 
-function TodoListPage() {
+function TodoListPage(/* {lists} */) {
 
   const [lists, setLists] = useState([]) 
 
   useEffect(() => {
     const taskListEndpoint = `${Url}lists`;
+    dispatch(loadDashboard())
     fetch(taskListEndpoint)
       .then(response => response.json())
       .then(setLists)
   },[])
+
+  const dispatch = useDispatch()
+
+
+
 
   return (
     
@@ -43,4 +46,4 @@ function TodoListPage() {
   );
 }
 
-export default TodoListPage;
+export default TodoListPage

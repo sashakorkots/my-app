@@ -65,3 +65,13 @@ body {
   display: block;
   text-decoration: none;
 }
+.count-of-tasks {
+  color: gray;
+  font-size: 0.7em;
+}
+.count-of-tasks::after {
+  content: ")";
+}
+.count-of-tasks::before {
+  content: "(";
+}

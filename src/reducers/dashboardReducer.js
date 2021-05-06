@@ -4,7 +4,7 @@ const defaultState = {
     lists: []
 };
 
-const listReducer = (state = defaultState, action) => {
+const dashboardReducer = (state = defaultState, action) => {
     switch (action.type) {
         case DASHBOARD_LOADED:
             return {
@@ -14,7 +14,7 @@ const listReducer = (state = defaultState, action) => {
             return state
     }
 };
-export default listReducer;
+export default dashboardReducer;
  
 
 //redux thunk
