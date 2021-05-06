@@ -9,7 +9,7 @@ import TodayTasks from './components/TodayTasks';
 import { loadDashboard } from './store/actions/dashboardActions'
 import { useDispatch,useSelector } from 'react-redux';
 
-function TodoListPage(/* {lists} */) {
+function TodoListPage() {
 
   const [lists, setLists] = useState([]) 
 
@@ -26,7 +26,7 @@ function TodoListPage(/* {lists} */) {
   
 
   const data = useSelector(state => state.dashboard);
-  console.log(data)
+
 
 
   return (

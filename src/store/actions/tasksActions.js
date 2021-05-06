@@ -20,5 +20,5 @@ export const changeTask = task => async(dispatch) => {
     })
     .then(response => response.json())
     .then(tasks => dispatch({type: ADD_TASK, payload: tasks}))
-
 }
+

@@ -12,7 +12,7 @@ const TodoListSidebar = () => {
             <NavLink to={`/today`} activeClassName="active-link" className='link'>today<span className='count-of-tasks'>{data.countOfToadyTasks}</span></NavLink>
             {    
                 data.myListsNoDone.map((l) => 
-                    <NavLink to={`/todo-list/${l.id}`} key={l.myListId} activeClassName="active-link" className='link'>{l.title} 
+                    <NavLink to={`/todo-list/${l.id}`} key={l.MyListId} activeClassName="active-link" className='link'>{l.title} 
                         <span className='count-of-tasks'>{l.countOfNoDoneTasks}</span>
                     </NavLink>
                 )

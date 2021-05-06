@@ -3,11 +3,17 @@ import Task from './Task'
 import NewTaskForm from './NewTaskForm'
 import Url from "../url"
 import { useParams } from "react-router";
+import { useSelector } from 'react-redux';
+
 
 const ListTasks = () => {
     const {id} = useParams();
 
+    const tDate = useSelector(state => state.tasks)
+
+
     const[tasks, setTasks] = useState([])
+    
 
     useEffect(() => {
         getTasks(id).then(setTasks)
