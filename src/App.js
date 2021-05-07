@@ -11,12 +11,14 @@ import { useDispatch,useSelector } from 'react-redux';
 
 function TodoListPage() {
 
+  const tasks = useSelector(t => t.tasks)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(loadDashboard())
 
-  },[])
+  },[tasks])
 
   return (
     

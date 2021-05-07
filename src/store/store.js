@@ -18,10 +18,3 @@ const configureStore = () => createStore(
 
 
 export default configureStore;
-
-//combaine redusers
-
-/* combineReducers({
-        dashboardReducer,
-        tasksReducers
-}) */

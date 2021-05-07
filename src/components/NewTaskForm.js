@@ -4,13 +4,9 @@ import Url from "../url"
 import { useDispatch } from 'react-redux';
 import {addTask} from '../store/actions/tasksActions'
 
-function fieldAPI(...fields) {
-    const object = {}
-    for (let f of fields) {
-        object[f.name] = f.value;
-    }
+function createForm(...fields) {
     return {
-        buildObject : object,  /* buildObject : () => fields.reduce((i,f) => i[f.name] = f.value, {}), */
+        buildObject : () => fields.reduce((obj,f) => ({...obj, [f.name] : f.value}), {}),
         cleanAll : () => fields.map(m => m.setvalue.setvalue(""))
     }
 }
@@ -37,10 +33,10 @@ function NewTaskForm () {
     const dispatch = useDispatch()
 
     const createTask = (event) => {
-        const objFields = fieldAPI(fieldTitle, fieldDescription, fieldDoDate).buildObject
+        const objFields = createForm(fieldTitle, fieldDescription, fieldDoDate).buildObject()
         objFields.currentlist = id;
         dispatch(addTask(objFields))
-        fieldAPI( fieldTitle, fieldDescription, fieldDoDate).cleanAll(); 
+        createForm( fieldTitle, fieldDescription, fieldDoDate).cleanAll(); 
     }
 
     const onSubmitHandler = (event) => {
