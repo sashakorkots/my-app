@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useParams } from "react-router";
 import Url from "../url"
 
 function fieldAPI(...fields) {
@@ -25,23 +26,29 @@ function useField(name, type) {
 }
 
 function NewTaskForm (props) {
+
+    const {id} = useParams();
     const fieldTitle = useField('title','text')
     const fieldDescription = useField('description','text')
     const fieldDoDate = useField('doDate','date')
 
     const createTask = (event) => {
+        const objFields = fieldAPI(fieldTitle, fieldDescription, fieldDoDate).buildObject
+        objFields.currentlist = id;
+        props.onSubmit(objFields)
+        fieldAPI( fieldTitle, fieldDescription, fieldDoDate).cleanAll(); 
+    }
+
+    const addTask = (task) => {
         const taskListEndpoint = `${Url}list/${props.currentlist}/task`;
-        fetch(taskListEndpoint, {
+        return fetch(taskListEndpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(fieldAPI(fieldTitle, fieldDescription, fieldDoDate).buildObject)
+            body: JSON.stringify(task)
         })
         .then(response => response.json())
-        .then(props.onSubmit)
-        .then(_ => { fieldAPI( fieldTitle, fieldDescription, fieldDoDate).cleanAll();
-        }); 
     }
 
     const onSubmitHandler = (event) => {

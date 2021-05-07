@@ -7,22 +7,9 @@ function Task ({task, onUpdate, onDelete, today}){
 
 
     const change = (event) => {  
-        updateTask().then(onUpdate)
+        onUpdate(task)
     }
 
-    const updateTask = () => {
-        task.done = !task.done
-            const taskListEndpoint = `${Url}list/${task.myListId}/task/${task.myTaskId}`;
-            return fetch(taskListEndpoint, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(task)
-        })
-        .
-        then(response => response.json())
-    }
     const remove = (event) => {
         
         deleteTask().then(onDelete)

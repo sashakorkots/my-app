@@ -11,29 +11,20 @@ import { useDispatch,useSelector } from 'react-redux';
 
 function TodoListPage() {
 
-  const [lists, setLists] = useState([]) 
+  const tasks = useSelector(state => state.tasks);
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(loadDashboard())
-    const taskListEndpoint = `${Url}lists`;  
-    fetch(taskListEndpoint)
-      .then(response => response.json())
-      .then(setLists)
-  },[dispatch])
 
-  
-
-  const data = useSelector(state => state.dashboard);
-
-
+  },[dispatch, tasks])
 
   return (
     
     <div className="App">
       <BrowserRouter>
-        <TodoListSidebar lists={lists} />
+        <TodoListSidebar />
         
         <div className="tasks">
 
