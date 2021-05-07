@@ -1,4 +1,4 @@
-import { TASKS_LOADED, TASKS_UPDATE, ADD_TASK } from '../../store/actions/types';
+import { TASKS_LOADED, TASKS_UPDATE, ADD_TASK, DELETE_TASK, TASKS_TODAY_LOADED } from '../../store/actions/types';
 
 const defaultState = [
     {
@@ -20,17 +20,15 @@ const tasksReducer = (state = defaultState, action) => {
             const index = state.findIndex(t => t.myTaskId === action.payload.myTaskId);
             const newTasks = state.slice();
             newTasks.splice(index, 1, action.payload);
-            console.log(newTasks)
             return newTasks
         case ADD_TASK:
             return state.concat(action.payload)
+        case DELETE_TASK:
+            return state.filter(t => t.myTaskId !== action.payload.myTaskId)
+        case TASKS_TODAY_LOADED:
+            return action.payload
         default:
             return state
     }
 };
 export default tasksReducer;
-
-/* const index = tasks.findIndex(t => t.myTaskId === task.myTaskId);
-        const newTasks = tasks.slice();
-        newTasks.splice(index, 1, task);
-        setTasks(newTasks) */

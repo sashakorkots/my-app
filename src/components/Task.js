@@ -2,28 +2,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Url from "../url"
+import { useDispatch } from 'react-redux';
+import {changeTask, deleteTask} from '../store/actions/tasksActions'
 
-function Task ({task, onUpdate, onDelete, today}){ 
-
+function Task ({task, today}){ 
+    
+    const dispatch = useDispatch()
 
     const change = (event) => {  
-        onUpdate(task)
+        dispatch(changeTask(task))
     }
 
     const remove = (event) => {
         
-        deleteTask().then(onDelete)
+        dispatch(deleteTask(task))
     }
-    const deleteTask = () => {
-        const taskListEndpoint = `${Url}list/${task.myListId}/task/${task.myTaskId}`;
-        return fetch(taskListEndpoint, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-    }
+    
     function builDueDateNode(doDate) {
         if (doDate != null){
             return new Date(doDate).toDateString();

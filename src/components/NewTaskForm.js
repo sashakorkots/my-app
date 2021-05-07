@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useParams } from "react-router";
 import Url from "../url"
+import { useDispatch } from 'react-redux';
+import {addTask} from '../store/actions/tasksActions'
 
 function fieldAPI(...fields) {
     const object = {}
@@ -25,36 +27,26 @@ function useField(name, type) {
     }
 }
 
-function NewTaskForm (props) {
+function NewTaskForm () {
 
     const {id} = useParams();
     const fieldTitle = useField('title','text')
     const fieldDescription = useField('description','text')
     const fieldDoDate = useField('doDate','date')
 
+    const dispatch = useDispatch()
+
     const createTask = (event) => {
         const objFields = fieldAPI(fieldTitle, fieldDescription, fieldDoDate).buildObject
         objFields.currentlist = id;
-        props.onSubmit(objFields)
+        dispatch(addTask(objFields))
         fieldAPI( fieldTitle, fieldDescription, fieldDoDate).cleanAll(); 
-    }
-
-    const addTask = (task) => {
-        const taskListEndpoint = `${Url}list/${props.currentlist}/task`;
-        return fetch(taskListEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(task)
-        })
-        .then(response => response.json())
     }
 
     const onSubmitHandler = (event) => {
         event.preventDefault()
         createTask(event)
-
+        
     }
 
     return (
