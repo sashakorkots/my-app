@@ -4,21 +4,16 @@ import './App.css';
 import TodoListSidebar from './components/TodoListSidebar';
 import ListTasks from './components/ListTasks';
 import {Route, BrowserRouter} from 'react-router-dom';
-import Url from './url';
 import TodayTasks from './components/TodayTasks';
 import { loadDashboard } from './store/actions/dashboardActions'
 import { useDispatch,useSelector } from 'react-redux';
 
 function TodoListPage() {
-
-  const tasks = useSelector(t => t.tasks)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(loadDashboard())
-
-  },[tasks])
+  },[])
 
   return (
     

@@ -51,6 +51,3 @@ function Task ({task, today}){
 
 export default Task;
 
-/* 
-<NavLink to={`/todo-list/${l.myListId}`} key={l.myListId} activeClassName="active-link" className='link'>{l.title} </NavLink>
-*/

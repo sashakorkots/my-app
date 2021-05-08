@@ -9,11 +9,11 @@ const TodoListSidebar = () => {
     return (
         <div id='list-sidebar'>
             <h2>Lists</h2>
-            <NavLink to={`/today`} activeClassName="active-link" className='link'>today<span className='count-of-tasks'>{data.countOfToadyTasks}</span></NavLink>
+            <NavLink to={`/today`} activeClassName="active-link" className='link'>today<span className='count-of-tasks'>{data.today}</span></NavLink>
             {    
-                data.myListsNoDone.map((l) => 
-                    <NavLink to={`/todo-list/${l.id}`} key={l.MyListId} activeClassName="active-link" className='link'>{l.title} 
-                        <span className='count-of-tasks'>{l.countOfNoDoneTasks}</span>
+                data.lists.map((l) => 
+                    <NavLink to={`/todo-list/${l.id}`} key={l.id} activeClassName="active-link" className='link'>{l.title} 
+                        <span className='count-of-tasks'>{data.openedTasks.find(k => l.id in k)[l.id]}</span>
                     </NavLink>
                 )
             }

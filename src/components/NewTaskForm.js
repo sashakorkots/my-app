@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useParams } from "react-router";
-import Url from "../url"
 import { useDispatch } from 'react-redux';
 import {addTask} from '../store/actions/tasksActions'
 
